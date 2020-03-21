@@ -24,6 +24,7 @@
     <option name="renderExternalDocumentation" value="true" />
   </component>
   <component name="ReSTService">
+    <option name="workdir" value="$MODULE_DIR$/docs" />
     <option name="DOC_DIR" value="$MODULE_DIR$/docs" />
   </component>
   <component name="TemplatesService">
@@ -35,6 +36,11 @@
     </option>
   </component>
   <component name="TestRunnerService">
+    <option name="projectConfiguration" value="pytest" />
     <option name="PROJECT_TEST_RUNNER" value="pytest" />
+  </component>
+  <component name="sonarModuleSettings">
+    <option name="localAnalysisScripName" value="&lt;PROJECT&gt;" />
+    <option name="serverName" value="&lt;PROJECT&gt;" />
   </component>
 </module>
