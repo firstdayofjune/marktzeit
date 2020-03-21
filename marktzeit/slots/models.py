@@ -17,6 +17,14 @@ class Slot(TimeStampedModel):
         verbose_name=_("time range"),
         help_text=_("The time range during which this slot is active"),
     )
+    start_time = models.DateTimeField(
+        verbose_name=_("start time"),
+        help_text=_("The time at which this slot starts"),
+    )
+    end_time = models.DateTimeField(
+        verbose_name=_("end time"),
+        help_text=_("The time at which this slot starts"),
+    )
     booked_by = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         verbose_name=_("booked by"),
@@ -29,6 +37,6 @@ class Slot(TimeStampedModel):
 
     def __str__(self):
         return (
-            f"{self.supermarket} -"
-            f" {self.time_range.lower:%H:%M}-{self.time_range.upper:%H:%M}"
+            f"{self.supermarket} - {self.start_time:%Y-%m-%d} -"
+            f" {self.start_time:%H:%M}-{self.end_time:%H:%M}"
         )
