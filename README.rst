@@ -16,7 +16,7 @@ An app to schedule super market visits.
 Sponsors
 --------
 
-We are very greateful for the help of:
+We are very grateful for the help of:
 
 .. image:: https://www.filialstandorte.de/images/logo.png
      :target: https://www.filialstandorte.de/
