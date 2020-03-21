@@ -44,4 +44,19 @@ $red: #b94a48;
 
 h1, h2, h3, h4, p, label{
   color: $white;
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+
+
+footer {
+  a {
+    color: $mint-green;
+    font-weight: bolder;
+  }
+  span {
+    color: $white;
+    font-weight: bolder;
+  }
+  margin-bottom: 15px;
 }
