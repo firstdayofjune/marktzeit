@@ -22,3 +22,13 @@ class Slot(TimeStampedModel):
         verbose_name=_("booked by"),
         help_text=_("The people that booked this time slot"),
     )
+
+    class Meta:
+        verbose_name = _("slot")
+        verbose_name_plural = _("slots")
+
+    def __str__(self):
+        return (
+            f"{self.supermarket} -"
+            f" {self.time_range.lower:%H:%M}-{self.time_range.upper:%H:%M}"
+        )
