@@ -1,6 +1,5 @@
 from .base import *  # noqa
 from .base import env
-import os
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -44,11 +43,11 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#internal-ips
 INTERNAL_IPS = ["127.0.0.1", "10.0.2.2"]
-# if env("USE_DOCKER") == "yes":
-#     import socket
-#
-#     hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
-#     INTERNAL_IPS += [ip[:-1] + "1" for ip in ips]
+if env("USE_DOCKER") == "yes":
+    import socket
+
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS += [ip[:-1] + "1" for ip in ips]
 
 # django-extensions
 # ------------------------------------------------------------------------------
@@ -57,9 +56,3 @@ INSTALLED_APPS += ["django_extensions"]  # noqa F405
 
 # Your stuff...
 # ------------------------------------------------------------------------------
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(APPS_DIR, 'db.sqlite3'),
-    }
-}
