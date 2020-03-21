@@ -13,6 +13,14 @@ An app to schedule super market visits.
 
 :License: Apache Software License 2.0
 
+Sponsors
+--------
+
+We are very greateful for the help of:
+
+.. image:: https://www.filialstandorte.de/images/logo.png
+     :target: https://www.filialstandorte.de/
+     :alt: gb conbit - super market locations
 
 Settings
 --------
