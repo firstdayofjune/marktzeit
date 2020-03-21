@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+<!--
+As a user I can scroll through a list of supermarkets.
+For every market, I can see:
+
+The type of the Market (e.g. Lidl, Edeka, REWE, Penny, Netto, Bio Company, Denn's)
+The address (Friedrichstraße 142, 10117 Berlin)
+The opening hours: (07:00 - 22:00, "closed today"/"Heute geschlossen", multiple opening hours per day possible and broken into multiple lines)
+The number of Slots which are still available throughout the rest of the day
+A call-to-action button: "Book a slot"/"Slot buchen" for every supermarket, with slots available
+-->
+
+{% block content %}
+  <!--TODO templating-->
+  <div class="col-12 col-md-10 col-lg-8 mz__markt_list">
+    <h3 class="text-center"> Die folgende Märkte sind gefunden</h3>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Markt</th>
+        <th scope="col">Address</th>
+        <th scope="col">Öffunungszeit</th>
+        <th scope="col">Slots</th>
+        <th scope="col">Buchen</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th scope="row">Edeka</th>
+        <td>Friedrichstraße 142, <br> 10117 Berlin</td>
+        <td>07:00 - 22:00, <br> "closed today"/"Heute geschlossen"</td>
+        <td>10</td>
+        <td><a href="#markt_edka" class="btn btn-danger">Buchen</a></td>
+      </tr>
+      <tr>
+        <th scope="row">Rewe</th>
+        <td>Berliner Str. 142, <br> 10117 Berlin</td>
+        <td>07:00 - 22:00, <br> "opened today"/"Heute geöffnet"</td>
+        <td>10</td>
+        <td><a href="#markt_rewe"  class="btn btn-success">Buchen</a></td>
+      </tr>
+      <tr>
+        <th scope="row">Lidl</th>
+        <td>Friedrichstraße 142, <br> 10117 Berlin</td>
+        <td>07:00 - 22:00, <br> "closed today"/"Heute geschlossen"</td>
+        <td>10</td>
+        <td><a href="#markt_lidl" class="btn btn-danger">Buchen</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+{% endblock content %}
