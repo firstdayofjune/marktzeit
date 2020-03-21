@@ -1,1 +1,59 @@
 {% extends "base.html" %}
+
+{% block content %}
+  <div class="col-12 col-md-10 col-lg-8">
+    <form class="card card-sm">
+      <div class="card-body row no-gutters align-items-center">
+        <div class="col-auto">
+          <i class="fas fa-search h4 text-body"></i>
+        </div>
+        <!--end of col-->
+        <div class="col">
+          {% csrf_token %}
+          <input id="search" class="form-control form-control-lg form-control-borderless" type="search"
+                 placeholder="Supermärkte in der nähe Suchen">
+        </div>
+        <!--end of col-->
+        <div class="col-auto">
+          <button id="submit" class="btn btn-lg btn-success" type="submit">Suchen</button>
+        </div>
+        <!--end of col-->
+      </div>
+    </form>
+
+    <div class="mz__results" id="results"></div>
+  </div>
+  <!--end of col-->
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    $("#submit").click(function (e) {
+      e.preventDefault();
+      $.getJSON({
+        url: '/search/',
+        type: 'GET',
+        data: {
+          'query': $("#search").val()
+        },
+        success: function (data) {
+          console.log(data.result)
+          if (data.result) {
+            var ul = '<ul class="list-group list-group-flush">';
+            for (var i = 0; i < data.result.length; i++) {
+              var shop_obj = data.result[i];
+              ul += '<a  href="shop_url"><li class="list-group-item">shop_name</li></a>'.replace(
+                'shop_name', shop_obj.name,
+                'shop_url', shop_obj.url
+              )
+            }
+            ul += '</ul>';
+
+            $('#results').prepend(ul);
+          }
+        }
+      });
+    })
+
+  </script>
+{% endblock %}

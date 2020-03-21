@@ -1,13 +1,1 @@
-/* These styles are generated from project.scss. */
-
-.alert-debug {
-  color: black;
-  background-color: white;
-  border-color: #d6e9c6;
-}
-
-.alert-error {
-  color: #b94a48;
-  background-color: #f2dede;
-  border-color: #eed3d7;
-}
+body,html{height:100%;width:100%;margin:0;padding:0;background:#e7664f}.alert-debug{background-color:#fff;border-color:#d6e9c6;color:#000}.alert-error{background-color:#f2dede;border-color:#eed3d7;color:#b94a48}h1,h2,h3,h4,p,label{color:#fff}.form-control-borderless{border:none}.form-control-borderless:hover,.form-control-borderless:active,.form-control-borderless:focus{border:none;outline:none;box-shadow:none}.mz__results{margin-top:15px}.mz__results a{padding-bottom:1px;background:#b94a48;float:left;-webkit-transition:all 0.5s ease-in-out;border:0px;color:inherit}.mz__results a:hover{-webkit-transform:scale(1.01)}
