@@ -4,8 +4,7 @@ from django.http import HttpResponse
 
 
 def search(request):
-    # TODO: search
-    print(request.GET.get('query'))
+    print(request.GET.get('q'))
     results = {'result': [
         {'name': 'Mark1', 'url': '/markt1'},
         {'name': 'Mark2', 'url': '/markt2'}
