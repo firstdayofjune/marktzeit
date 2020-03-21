@@ -27,6 +27,10 @@ class Address(TimeStampedModel):
     postal_code = models.CharField(max_length=10)
     town = models.CharField(max_length=255)
 
+    class Meta:
+        verbose_name = _("address")
+        verbose_name_plural = _("addresses")
+
     def __str__(self):
         return f"{self.street} {self.street_number}, {self.postal_code} {self.town}"
 
@@ -35,6 +39,10 @@ class SupermarketChain(TimeStampedModel):
     """Represents the entity that owns multiple supermarkets"""
 
     name = models.CharField(max_length=255, verbose_name=_("name"))
+
+    class Meta:
+        verbose_name = _("supermarket chain")
+        verbose_name_plural = _("supermarket chains")
 
     def __str__(self):
         return self.name
@@ -58,6 +66,10 @@ class Supermarket(TimeStampedModel):
         verbose_name=_("minutes per slot"),
         help_text=_("How long is one slot?"),
     )
+
+    class Meta:
+        verbose_name = _("supermarket")
+        verbose_name_plural = _("supermarkets")
 
     def __str__(self):
         return f"{self.chain} - {self.name}"
@@ -110,7 +122,7 @@ class OpeningHours(TimeStampedModel):
     )
 
     class Meta:
-        verbose_name = verbose_name_plural = _("Opening hours")
+        verbose_name = verbose_name_plural = _("opening hours")
         ordering = ["supermarket", "weekday", "opening_time", "closing_time"]
 
     def __str__(self):
