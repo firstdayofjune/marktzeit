@@ -10,7 +10,6 @@
         <th scope="col">Markt</th>
         <th scope="col">Addresse</th>
         <th scope="col">Öffnungszeiten</th>
-        <th scope="col">Plätze</th>
         <th scope="col"></th>
       </tr>
       </thead>
@@ -28,7 +27,7 @@
               {% endfor %}
             </td>
             <td>
-              <a href="{% url 'supermarkets:markt-detail' %}"
+              <a href="{% url 'supermarkets:markt-detail' supermarket.uuid %}"
                  class="btn {% if not opening_hours %}btn-secondary disabled{% else %}btn-success{% endif %}">Zum Markt</a></td>
           </tr>
         {% endwith %}
