@@ -21,6 +21,7 @@ $pink: #f2dede;
 $dark-pink: #eed3d7;
 $red: #b94a48;
 
+
 $black80: #333333;
 $black60: #666666;
 $black45: #8C8C8C;
@@ -40,6 +41,9 @@ $soundcloud: #f50;
 $slideshare: #312f2d;
 $flickr: #ff0084;
 $yumpu: #EA5B0C;
+
+$mz_red: #dc3545;
+
 
 ////////////////////////////////
 //Alerts//
@@ -61,10 +65,10 @@ $yumpu: #EA5B0C;
 }
 
 
-h1, h2, h3, h4, p, label{
+h1, h2, h3, h4, h5, p, label{
   color: $white;
   padding-top: 10px;
-  padding-bottom: 15px;
+  padding-bottom: 10px;
 }
 
 a {

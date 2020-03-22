@@ -15,6 +15,7 @@ urlpatterns = [
     ),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
+    path("markt_detail/", view=TemplateView.as_view(template_name='markt_detail.html'), name="markt-detail"),
     path("markt_list/", view=TemplateView.as_view(template_name='markt_list.html'), name="markt-list"),
     path("search/", view=views_sm.search, name="redirect"),
     # User management
