@@ -4,11 +4,13 @@ import json
 
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.postgres.search import SearchVector
 from django.db import transaction
 from django.http import HttpResponse
+from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import FormView
+from django.views.generic import FormView, ListView
 from rest_framework.reverse import reverse_lazy
 
 from marktzeit.supermarkets.forms import SupermarketCSVUploadForm
@@ -36,6 +38,39 @@ def search(request):
     }
     results = json.dumps(results)
     return HttpResponse(results)
+
+
+class SupermarketListView(ListView):
+    model = Supermarket
+    paginate_by = 10
+
+    def get(self, request, *args, **kwargs):
+        query_string = self.request.GET.get("q")
+        if not query_string or len(query_string) < 4:
+            return redirect("supermarkets:markt-search")
+        return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query_string = self.request.GET.get("q")
+        return queryset.annotate(
+            search=SearchVector(
+                "name",
+                "chain__name",
+                "address__street",
+                "address__postal_code",
+                "address__suburb",
+                "address__town",
+                "address__district",
+                "address__state",
+                config="german",
+            )
+        ).filter(search=query_string)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context.update(query=self.request.GET.get("q"))
+        return context
 
 
 @method_decorator(
