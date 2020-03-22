@@ -13,10 +13,8 @@ urlpatterns = [
         name="markt-search",
     ),
     path(
-        "markt-detail/",
-        view=TemplateView.as_view(
-            template_name="supermarkets/supermarket_detail.html"
-        ),
+        "markt-detail/<uuid:supermarket_uuid>/",
+        view=views.SupermarketDetailView.as_view(),
         name="markt-detail",
     ),
     path(

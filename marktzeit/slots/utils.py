@@ -1,6 +1,7 @@
 import datetime
 from typing import Dict
 
+from django.db.models import Count, F, Value
 from django.utils.timezone import get_current_timezone
 
 from marktzeit.slots.models import Slot
@@ -29,12 +30,12 @@ def calculate_slots_for_supermarket(
     slots = {}
     # generate the slots for the day
     for opening_hours in opening_hours_set:
-        start_datetime = tz.localize(datetime.datetime.combine(
-            date, opening_hours.opening_time
-        ))
-        closing_datetime = tz.localize(datetime.datetime.combine(
-            date, opening_hours.closing_time
-        ))
+        start_datetime = tz.localize(
+            datetime.datetime.combine(date, opening_hours.opening_time)
+        )
+        closing_datetime = tz.localize(
+            datetime.datetime.combine(date, opening_hours.closing_time)
+        )
         while start_datetime < closing_datetime:
             end_datetime = start_datetime + datetime.timedelta(
                 seconds=supermarket.minutes_per_slot * 60
@@ -44,6 +45,10 @@ def calculate_slots_for_supermarket(
                 start_time=start_datetime,
                 end_time=end_datetime,
             )
+            slots[start_datetime.timestamp()].booked = 0
+            slots[
+                start_datetime.timestamp()
+            ].available = supermarket.people_per_slot
             start_datetime = end_datetime
 
     return slots
@@ -65,8 +70,12 @@ def get_slots_for_supermarket(
     end_of_day = start_of_day + datetime.timedelta(days=1)
 
     # all the slots that have already been created for the given date
-    existing_slots = supermarket.slot_set.filter(
-        start_time__range=(start_of_day, end_of_day)
+    existing_slots = (
+        supermarket.slot_set.filter(
+            start_time__range=(start_of_day, end_of_day)
+        )
+        .annotate(booked=Count("booked_by"))
+        .annotate(available=Value(supermarket.people_per_slot) - F("booked"))
     )
 
     possible_slots = calculate_slots_for_supermarket(supermarket, date)

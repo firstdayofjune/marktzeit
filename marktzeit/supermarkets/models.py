@@ -1,4 +1,5 @@
 import datetime
+import uuid
 
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -108,6 +109,10 @@ class Supermarket(TimeStampedModel):
     minutes_per_slot = models.PositiveIntegerField(
         verbose_name=_("minutes per slot"),
         help_text=_("How long is one slot?"),
+    )
+    # to prevent the supermarkets from being scraped
+    uuid = models.UUIDField(
+        default=uuid.uuid4, verbose_name=_("uuid"), unique=True
     )
 
     class Meta:

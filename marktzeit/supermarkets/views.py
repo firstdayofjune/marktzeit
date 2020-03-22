@@ -1,6 +1,6 @@
 import csv
-import logging
 import json
+import logging
 
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
@@ -8,17 +8,19 @@ from django.contrib.postgres.search import SearchVector
 from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import redirect
+from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import FormView, ListView
+from django.views.generic import DetailView, FormView, ListView
 from rest_framework.reverse import reverse_lazy
 
+from marktzeit.slots.utils import get_slots_for_supermarket
 from marktzeit.supermarkets.forms import SupermarketCSVUploadForm
 from marktzeit.supermarkets.models import (
-    Supermarket,
-    SupermarketChain,
     Address,
     OpeningHours,
+    Supermarket,
+    SupermarketChain,
 )
 
 logger = logging.getLogger(__name__)
@@ -70,6 +72,25 @@ class SupermarketListView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
         context.update(query=self.request.GET.get("q"))
+        return context
+
+
+class SupermarketDetailView(DetailView):
+    model = Supermarket
+    slug_field = 'uuid'
+    slug_url_kwarg = 'supermarket_uuid'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        slots = get_slots_for_supermarket(self.object, timezone.now().date())
+        total_slots = len(slots) * self.object.people_per_slot
+        booked_slots = sum([slot.booked for slot in slots.values()])
+        available_slots = total_slots - booked_slots
+        context.update(
+            # ensure it will always be chronological
+            slots=sorted(slots.items()),
+            available_slots=available_slots,
+        )
         return context
 
 
