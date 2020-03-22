@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  {% include "supermarkets/partial/search_form.html" %}
   <!--TODO templating-->
   <div class="col-12 col-md-10 col-lg-8 mz__markt_list">
-    <a class="btn btn-primary mz__markt_detail__back_btn" href="/"> << Züruck zur Suche</a>
     <h3 class="text-center" style="margin-top: 2em;">Folgende Märkte wurden gefunden:</h3>
     <table class="table">
       <thead>
@@ -21,17 +21,16 @@
         <td>Friedrichstraße 142, <br> 10117 Berlin</td>
         <td>07:00 - 22:00, <br> Heute geschlossen</td>
         <td>0</td>
-        <td><a href="{% url 'markt-detail' %}" class="btn btn-secondary mz__markt_list__button" disabled>Zum Markt</a></td>
+        <td><a href="{% url 'supermarkets:markt-detail' %}" class="btn btn-secondary mz__markt_list__button" disabled>Zum Markt</a></td>
       </tr>
       <tr class="mz__markt_list__active">
         <th scope="row">Rewe</th>
         <td>Berliner Str. 142, <br> 10117 Berlin</td>
         <td>07:00 - 22:00, <br> Heute geöffnet</td>
         <td>42</td>
-        <td><a href="{% url 'markt-detail' %}"  class="btn btn-success">Zum Markt</a></td>
+        <td><a href="{% url 'supermarkets:markt-detail' %}"  class="btn btn-success">Zum Markt</a></td>
       </tr>
       </tbody>
     </table>
   </div>
-
 {% endblock content %}
