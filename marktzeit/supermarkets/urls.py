@@ -8,22 +8,20 @@ urlpatterns = [
     path(
         "",
         view=TemplateView.as_view(
-            template_name="supermarkets/markt_search.html"
+            template_name="supermarkets/supermarket_search.html"
         ),
         name="markt-search",
     ),
     path(
         "markt-detail/",
         view=TemplateView.as_view(
-            template_name="supermarkets/markt_detail.html"
+            template_name="supermarkets/supermarket_detail.html"
         ),
         name="markt-detail",
     ),
     path(
         "markt-list/",
-        view=TemplateView.as_view(
-            template_name="supermarkets/markt_list.html"
-        ),
+        view=views.SupermarketListView.as_view(),
         name="markt-list",
     ),
     path("search/", view=views.search, name="redirect"),
