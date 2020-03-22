@@ -22,17 +22,41 @@ def _get_time_choices():
 class Address(TimeStampedModel):
     """Represents a physical address"""
 
-    street = models.CharField(max_length=255)
-    street_number = models.CharField(max_length=10)
-    postal_code = models.CharField(max_length=10)
-    town = models.CharField(max_length=255)
+    street = models.CharField(max_length=255, verbose_name=_("street"))
+    street_number = models.CharField(
+        max_length=10, verbose_name=_("street number")
+    )
+    postal_code = models.CharField(
+        max_length=10, verbose_name=_("postal code")
+    )
+    suburb = models.CharField(
+        max_length=255, null=True, blank=True, verbose_name=_("suburb")
+    )
+    town = models.CharField(max_length=255, verbose_name=_("town"))
+    district = models.CharField(
+        max_length=255, null=True, blank=True, verbose_name=_("district")
+    )
+    state = models.CharField(
+        max_length=255, null=True, blank=True, verbose_name=_("state")
+    )
+
+    # TODO: replace with GIS Point
+    longitude = models.DecimalField(
+        max_digits=9, decimal_places=6, null=True, verbose_name=_("longitude")
+    )
+    latitude = models.DecimalField(
+        max_digits=9, decimal_places=6, null=True, verbose_name=_("latitude")
+    )
 
     class Meta:
         verbose_name = _("address")
         verbose_name_plural = _("addresses")
 
     def __str__(self):
-        return f"{self.street} {self.street_number}, {self.postal_code} {self.town}"
+        return (
+            f"{self.street} {self.street_number},"
+            f" {self.postal_code} {self.town}"
+        )
 
 
 class SupermarketChain(TimeStampedModel):
@@ -51,9 +75,27 @@ class SupermarketChain(TimeStampedModel):
 class Supermarket(TimeStampedModel):
     """Represents a supermarket where users can book slots to visit"""
 
-    name = models.CharField(max_length=255, verbose_name=_("name"))
     chain = models.ForeignKey(
-        SupermarketChain, verbose_name=_("chain"), on_delete=models.CASCADE
+        SupermarketChain,
+        verbose_name=_("chain"),
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    name = models.CharField(max_length=255, verbose_name=_("name"))
+    proprietor = models.CharField(
+        max_length=255, null=True, blank=True, verbose_name=_("proprietor")
+    )
+    phone_number = models.CharField(
+        max_length=255, null=True, blank=True, verbose_name=_("phone number")
+    )
+    fax_number = models.CharField(
+        max_length=255, null=True, blank=True, verbose_name=_("fax number")
+    )
+    email_address = models.EmailField(
+        max_length=255, null=True, blank=True, verbose_name=_("fax number")
+    )
+    website = models.URLField(
+        max_length=255, null=True, blank=True, verbose_name=_("website")
     )
     address = models.ForeignKey(
         Address, verbose_name=_("address"), on_delete=models.CASCADE
