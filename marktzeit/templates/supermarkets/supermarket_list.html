@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% include "supermarkets/partial/search_form.html" with query=query %}
+  <!--TODO templating-->
+  <div class="col-12 col-md-10 col-lg-8 mz__markt_list">
+    <h3 class="text-center" style="margin-top: 2em;">Folgende Märkte wurden gefunden:</h3>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Markt</th>
+        <th scope="col">Addresse</th>
+        <th scope="col">Öffnungszeiten</th>
+        <th scope="col">Plätze</th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for supermarket in supermarket_list %}
+        {% with opening_hours=supermarket.todays_opening_hours %}
+          <tr class="mz__markt_list__disabled">
+            <th scope="row">{{ supermarket.name }}</th>
+            <td>{{ supermarket.address.street }} {{ supermarket.address.street_number }}, <br> {{ supermarket.address.postal_code }} {{ supermarket.address.town }}</td>
+            <td>
+              {% for opening_times in opening_hours %}
+                {{ opening_times.opening_time|date:"H:i" }} - {{ opening_times.closing_time|date:"H:i" }}
+              {% empty %}
+                Heute geschlossen
+              {% endfor %}
+            </td>
+            <td>
+              <a href="{% url 'supermarkets:markt-detail' %}"
+                 class="btn {% if not opening_hours %}btn-secondary disabled{% else %}btn-success{% endif %}">Zum Markt</a></td>
+          </tr>
+        {% endwith %}
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock content %}
