@@ -79,11 +79,14 @@ Moved to `Live reloading and SASS compilation`_.
 
 
 
-Deployment
-----------
-
-The following details how to deploy this application.
-
+Deployment on server
+--------------------
+# build container
+docker-compose -f production.yml build
+# run container
+docker-compose -f production.yml up -d
+# for static files
+docker cp <container_id>:/app/staticfiles .
 
 
 Docker
