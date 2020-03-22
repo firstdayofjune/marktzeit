@@ -3,7 +3,6 @@ version: '3'
 volumes:
   production_postgres_data: {}
   production_postgres_data_backups: {}
-  production_traefik: {}
 
 services:
   django:
@@ -14,6 +13,10 @@ services:
     depends_on:
       - postgres
       - redis
+    volumes:
+      - .:/app
+    ports:
+      - "8000:5000"
     env_file:
       - ./.envs/.production/.django
       - ./.envs/.production/.postgres
@@ -30,28 +33,5 @@ services:
     env_file:
       - ./.envs/.production/.postgres
 
-  traefik:
-    build:
-      context: .
-      dockerfile: ./compose/production/traefik/Dockerfile
-    image: marktzeit_production_traefik
-    depends_on:
-      - django
-    volumes:
-      - production_traefik:/etc/traefik/acme
-    ports:
-      - "0.0.0.0:80:80"
-      - "0.0.0.0:443:443"
-
   redis:
     image: redis:5.0
-
-
-  awscli:
-    build:
-      context: .
-      dockerfile: ./compose/production/aws/Dockerfile
-    env_file:
-      - ./.envs/.production/.django
-    volumes:
-      - production_postgres_data_backups:/backups
