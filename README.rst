@@ -1,7 +1,9 @@
 marktzeit
 =========
 
-An app to schedule super market visits.
+*Stop queueing, start shopping.* Visit: `meine-marktzeit.de <https://meine-marktzeit.de>`_
+
+An app to schedule super market visits - a project created as part of the `#WirVSVirus hackathon <https://wirvsvirushackathon.org/>`_ to prevent the corona virus from spreading further.
 
 .. image:: https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg
      :target: https://github.com/pydanny/cookiecutter-django/
