@@ -4,5 +4,51 @@
     table {
       color: $white;
     }
+
+    &__disabled {
+      color: $black80;
+    }
+
+    &__active {
+      color: $white;
+    }
+
+    &__button {
+      cursor: not-allowed;
+      pointer-events: none;
+      color: #c0c0c0;
+    }
+  }
+
+  &__markt_detail {
+
+    h5 {
+      color: $mint-green;
+    }
+
+    table {
+      color: $white;
+    }
+
+    &__disabled {
+      background: $black80;
+    }
+
+    &__active {
+      color: $white;
+    }
+
+    &__button {
+      cursor: not-allowed;
+      pointer-events: none;
+      color: #c0c0c0;
+      background: $black30;
+    }
+
+    &__back_btn {
+      color: $white !important;
+      background: $black30;
+      border-color: $black30;
+    }
   }
 }
