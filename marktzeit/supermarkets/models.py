@@ -2,6 +2,7 @@ import datetime
 
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import ugettext, ugettext_lazy as _
 from model_utils.models import TimeStampedModel
 
@@ -115,6 +116,12 @@ class Supermarket(TimeStampedModel):
 
     def __str__(self):
         return f"{self.chain} - {self.name}"
+
+    def todays_opening_hours(self):
+        """Get the current date's opening times for this supermarket"""
+        return self.openinghours_set.filter(
+            weekday=timezone.now().isoweekday()
+        )
 
 
 class OpeningHours(TimeStampedModel):
