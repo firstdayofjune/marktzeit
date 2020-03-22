@@ -2,8 +2,7 @@
 
 {% block content %}
   <div class="col-12 col-md-10 col-lg-8">
-      <h1 class="text-center">Los geht's !!!</h1>
-    <h3 class="text-center">Wähle Deinen Markt</h3>
+    <h2 class="text-center">Einkaufen gehen, statt Schlange stehen.</h2>
     <form class="card card-sm">
       <div class="card-body row no-gutters align-items-center">
         <div class="col-auto">
@@ -13,16 +12,15 @@
         <div class="col">
           {% csrf_token %}
           <input id="search" class="form-control form-control-lg form-control-borderless" type="search"
-                 placeholder="Supermärkte in der nähe suchen">
+                 placeholder="Supermärkte in deiner Nähe finden">
         </div>
         <!--end of col-->
         <div class="col-auto">
-          <button id="submit" class="btn btn-lg btn-success" type="submit">Suchen</button>
+          <button id="submit" class="btn btn-lg btn-success" type="submit">Los!</button>
         </div>
         <!--end of col-->
       </div>
     </form>
-
     <div class="mz__results" id="results"></div>
   </div>
   <!--end of col-->

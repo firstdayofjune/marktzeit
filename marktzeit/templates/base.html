@@ -49,18 +49,21 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-        </li>
         {% if request.user.is_authenticated %}
-          <li class="nav-item">
-            {# URL provided by django-allauth/account/urls.py #}
-            <a class="nav-link" href="{% url 'users:detail' request.user.username %}">{% trans "My Profile" %}</a>
-          </li>
-          <li class="nav-item">
-            {# URL provided by django-allauth/account/urls.py #}
-            <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
-          </li>
+
+            <li class="nav-item dropdown">
+              <button class="btn btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <svg class="bi bi-person-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+                </svg>
+              </button>
+              <div class="dropdown-menu">
+                {# URL provided by django-allauth/account/urls.py #}
+                <a class="nav-link" href="{% url 'users:detail' request.user.username %}">{% trans "My Profile" %}</a>
+                          {# URL provided by django-allauth/account/urls.py #}
+                <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
+              </div>
+            </li>
         {% else %}
           <li class="nav-item">
             {# URL provided by django-allauth/account/urls.py #}
@@ -97,9 +100,7 @@
 {% block modal %}{% endblock modal %}
 
 <!-- Footer -->
-<footer class="page-footer font-small blue">
-
-
+<footer class="page-footer font-small blue fixed-bottom">
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3">
     <a href="/datenschutz"> Datenschutz</a> <span>|</span>
@@ -165,4 +166,4 @@
 {% endblock javascript %}
 </body>
 </html>
- 
+
