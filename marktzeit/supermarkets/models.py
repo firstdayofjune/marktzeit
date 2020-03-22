@@ -139,6 +139,7 @@ class OpeningHours(TimeStampedModel):
         (6, _("Saturday")),
         (7, _("Sunday")),
     ]
+    TIMES = _get_time_choices()
 
     supermarket = models.ForeignKey(
         Supermarket, verbose_name=_("supermarket"), on_delete=models.CASCADE
@@ -151,14 +152,14 @@ class OpeningHours(TimeStampedModel):
         ),
     )
     opening_time = models.TimeField(
-        choices=_get_time_choices(),
+        choices=TIMES,
         default=datetime.time(8, 0),
         verbose_name=_("opening time"),
         help_text=_("The time at which the supermarket opens."),
     )
     closing_time = models.TimeField(
-        choices=_get_time_choices(),
-        default=datetime.time(18, 0),
+        choices=TIMES,
+        default=datetime.time(20, 0),
         verbose_name=_("closing time"),
         help_text=_("The time at which the supermarket closes."),
     )
@@ -196,8 +197,8 @@ class OpeningHours(TimeStampedModel):
             supermarket=self.supermarket,
             weekday=self.weekday,
             # (open1 < close2) and (open2 < close1)
-            opening_time__lt=self.closing_time,
-            closing_time__gt=self.opening_time,
+            opening_time__lte=self.closing_time,
+            closing_time__gte=self.opening_time,
         )
         if self.pk:
             qs = qs.exclude(pk=self.pk)
