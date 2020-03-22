@@ -13,8 +13,6 @@ services:
     depends_on:
       - postgres
       - redis
-    volumes:
-      - .:/app
     ports:
       - "8000:5000"
     env_file:
