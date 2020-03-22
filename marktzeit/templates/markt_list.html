@@ -1,19 +1,18 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
   <!--TODO templating-->
-  <div class="col-12 col-md-10 col-lg-8 mz__markt_list text-center">
+  <div class="col-12 col-md-10 col-lg-8 mz__markt_list">
     <a class="btn btn-primary mz__markt_detail__back_btn" href="/"> << Züruck zur Suche</a>
-    <h3 class="text-center"> Die folgende Märkte sind gefunden</h3>
+    <h3 class="text-center" style="margin-top: 2em;">Folgende Märkte wurden gefunden:</h3>
     <table class="table">
       <thead>
       <tr>
-        <th scope="col">Zeit</th>
-        <th scope="col">Address</th>
-        <th scope="col">Öffunungszeit</th>
-        <th scope="col">Slots</th>
-        <th scope="col">Buchen</th>
+        <th scope="col">Markt</th>
+        <th scope="col">Addresse</th>
+        <th scope="col">Öffnungszeiten</th>
+        <th scope="col">Plätze</th>
+        <th scope="col"></th>
       </tr>
       </thead>
       <tbody>
@@ -21,15 +20,15 @@
         <th scope="row">Edeka</th>
         <td>Friedrichstraße 142, <br> 10117 Berlin</td>
         <td>07:00 - 22:00, <br> Heute geschlossen</td>
-        <td>10</td>
-        <td><a href="{% url 'markt-detail' %}" class="btn btn-danger mz__markt_list__button" disabled>Buchen</a></td>
+        <td>0</td>
+        <td><a href="{% url 'markt-detail' %}" class="btn btn-secondary mz__markt_list__button" disabled>Zum Markt</a></td>
       </tr>
       <tr class="mz__markt_list__active">
         <th scope="row">Rewe</th>
         <td>Berliner Str. 142, <br> 10117 Berlin</td>
         <td>07:00 - 22:00, <br> Heute geöffnet</td>
-        <td>10</td>
-        <td><a href="{% url 'markt-detail' %}"  class="btn btn-success">Buchen</a></td>
+        <td>42</td>
+        <td><a href="{% url 'markt-detail' %}"  class="btn btn-success">Zum Markt</a></td>
       </tr>
       </tbody>
     </table>
