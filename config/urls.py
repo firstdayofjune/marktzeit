@@ -6,23 +6,22 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
 
-from marktzeit.supermarkets import views as views_sm
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
+    path("", include("marktzeit.supermarkets.urls", namespace="supermarkets")),
     path(
-        "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
+        "about/",
+        TemplateView.as_view(template_name="pages/about.html"),
+        name="about",
     ),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
-    path("markt_detail/", view=TemplateView.as_view(template_name='markt_detail.html'), name="markt-detail"),
-    path("markt_list/", view=TemplateView.as_view(template_name='markt_list.html'), name="markt-list"),
-    path("search/", view=views_sm.search, name="redirect"),
     # User management
     path("users/", include("marktzeit.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 # API URLS
 urlpatterns += [
     # API base url
@@ -55,4 +54,6 @@ if settings.DEBUG:
     if "debug_toolbar" in settings.INSTALLED_APPS:
         import debug_toolbar
 
-        urlpatterns = [path("__debug__/", include(debug_toolbar.urls))] + urlpatterns
+        urlpatterns = [
+            path("__debug__/", include(debug_toolbar.urls))
+        ] + urlpatterns
