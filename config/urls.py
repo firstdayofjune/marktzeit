@@ -8,7 +8,15 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 
 urlpatterns = [
-    path("", include("marktzeit.supermarkets.urls", namespace="supermarkets")),
+    path(
+        "",
+        TemplateView.as_view(template_name="pages/home.html"),
+        name="home",
+    ),
+    path(
+        "maerkte/",
+        include("marktzeit.supermarkets.urls", namespace="supermarkets")
+    ),
     path(
         "about/",
         TemplateView.as_view(template_name="pages/about.html"),

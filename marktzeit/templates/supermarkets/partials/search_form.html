@@ -1,0 +1,19 @@
+<form class="card card-sm" method="get" action="{% url "supermarkets:markt-list" %}">
+  <div class="card-body row no-gutters align-items-center">
+    <div class="col-auto">
+      <i class="fas fa-search h4 text-body"></i>
+    </div>
+    <!--end of col-->
+    <div class="col">
+      <input name="q" id="search" class="form-control form-control-lg form-control-borderless" type="search"
+             placeholder="Supermärkte in deiner Nähe finden"{% if query %} value="{{ query|escape }}"{% endif %}>
+    </div>
+    <!--end of col-->
+    <div class="col-auto">
+      <button id="submit" class="btn btn-lg btn-success" type="submit">Los!</button>
+    </div>
+    <!--end of col-->
+  </div>
+</form>
+<div class="mz__results" id="results"></div>
+<!--end of col-->

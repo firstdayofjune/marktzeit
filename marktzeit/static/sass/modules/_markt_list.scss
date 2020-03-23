@@ -1,16 +1,9 @@
 // Markzeit class
 .mz {
   &__markt_list {
-    table {
-      color: $white;
-    }
 
     &__disabled {
       color: $black80;
-    }
-
-    &__active {
-      color: $white;
     }
 
     &__button {
@@ -26,16 +19,8 @@
       color: $mint-green;
     }
 
-    table {
-      color: $white;
-    }
-
     &__disabled {
       background: $black80;
-    }
-
-    &__active {
-      color: $white;
     }
 
     &__button {

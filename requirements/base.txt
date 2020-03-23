@@ -14,3 +14,5 @@ django-crispy-forms==1.9.0  # https://github.com/django-crispy-forms/django-cris
 django-redis==4.11.0  # https://github.com/niwinz/django-redis
 # Django REST Framework
 djangorestframework==3.11.0  # https://github.com/encode/django-rest-framework
+django-libsass==0.8.0  # https://github.com/torchbox/django-libsass
+django_compressor==2.4.0  # https://github.com/django-compressor/django-compressor/releases

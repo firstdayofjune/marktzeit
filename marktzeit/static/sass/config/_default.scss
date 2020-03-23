@@ -3,46 +3,18 @@ body, html {
   width: 100%;
   margin: 0;
   padding: 0;
-  background: #e7664f;
-
 }
 
-// project specific CSS goes here
+h1, h2, h3, h4, h5, p, label{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
 
 ////////////////////////////////
 //Variables//
 ////////////////////////////////
-//Maincolors
-
-$black: #000;
-$white: #fff;
-$mint-green: #d6e9c6;
-$pink: #f2dede;
-$dark-pink: #eed3d7;
-$red: #b94a48;
 
 
-$black80: #333333;
-$black60: #666666;
-$black45: #8C8C8C;
-$black30: #B3B3B3;
-$black15: #D9D9D9;
-$black10: #E6E6E6;
-$black5: #F2F2F2;
-
-//SoMe-colors
-$facebook: #3b5998;
-$twitter: #55acee;
-$googleplus: #dd4b39;
-$linkedin: #007bb6;
-$youtube: #bb0000;
-$xing: #135353;
-$soundcloud: #f50;
-$slideshare: #312f2d;
-$flickr: #ff0084;
-$yumpu: #EA5B0C;
-
-$mz_red: #dc3545;
 
 
 ////////////////////////////////
@@ -62,27 +34,4 @@ $mz_red: #dc3545;
   background-color: $pink;
   border-color: $dark-pink;
   color: $red;
-}
-
-
-h1, h2, h3, h4, h5, p, label{
-  color: $white;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-a {
-  color: $black80
-}
-
-footer {
-  a {
-    color: $mint-green;
-    font-weight: bolder;
-  }
-  span {
-    color: $white;
-    font-weight: bolder;
-  }
-  margin-bottom: 15px;
 }

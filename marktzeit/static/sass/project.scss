@@ -1,5 +1,14 @@
 // Modules
-@import "config/default";
+@import "config/all";
+
+// Override original bootstrap sass before import
+@import "bootstrap_overrides";
+@import "bootstrap/bootstrap";
+
+@import "mixins";
+
+@import "modules/base";
+@import "modules/home";
 @import "modules/search";
 @import "modules/registration";
 @import "modules/markt_list";

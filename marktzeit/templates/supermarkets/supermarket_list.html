@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  {% include "supermarkets/partial/search_form.html" with query=query %}
+  <div class="col-12 col-md-10 col-lg-8">
+    {% include "supermarkets/partials/search_form.html" with query=query %}
+  </div>
   <div class="col-12 col-md-10 col-lg-8 mz__markt_list">
     <h3 class="text-center" style="margin-top: 2em;">Folgende Märkte wurden gefunden:</h3>
     <table class="table">
@@ -18,7 +20,8 @@
         {% with opening_hours=supermarket.todays_opening_hours %}
           <tr class="mz__markt_list__disabled">
             <th scope="row">{{ supermarket.name }}</th>
-            <td>{{ supermarket.address.street }} {{ supermarket.address.street_number }}, <br> {{ supermarket.address.postal_code }} {{ supermarket.address.town }}</td>
+            <td>{{ supermarket.address.street }} {{ supermarket.address.street_number }},
+              <br> {{ supermarket.address.postal_code }} {{ supermarket.address.town }}</td>
             <td>
               {% for opening_times in opening_hours %}
                 {{ opening_times.opening_time|date:"H:i" }} - {{ opening_times.closing_time|date:"H:i" }}
@@ -28,7 +31,8 @@
             </td>
             <td>
               <a href="{% url 'supermarkets:markt-detail' supermarket.uuid %}"
-                 class="btn {% if not opening_hours %}btn-secondary disabled{% else %}btn-success{% endif %}">Zum Markt</a></td>
+                 class="btn {% if not opening_hours %}btn-secondary disabled{% else %}btn-success{% endif %}">Zum
+                Markt</a></td>
           </tr>
         {% endwith %}
       {% endfor %}
