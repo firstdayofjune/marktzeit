@@ -13,7 +13,9 @@ ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=[" "])
 # ------------------------------------------------------------------------------
 DATABASES["default"] = env.db("DATABASE_URL")  # noqa F405
 DATABASES["default"]["ATOMIC_REQUESTS"] = True  # noqa F405
-DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)  # noqa F405
+DATABASES["default"]["CONN_MAX_AGE"] = env.int(
+    "CONN_MAX_AGE", default=60
+)  # noqa F405
 
 # CACHES
 # ------------------------------------------------------------------------------
@@ -73,7 +75,8 @@ TEMPLATES[-1]["OPTIONS"]["loaders"] = [  # type: ignore[index] # noqa F405
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
 DEFAULT_FROM_EMAIL = env(
-    "DJANGO_DEFAULT_FROM_EMAIL", default="Marktzeit <noreply@ >"
+    "DJANGO_DEFAULT_FROM_EMAIL",
+    default="Marktzeit <noreply@meine-marktzeit.de>",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#server-email
 SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
@@ -106,7 +109,7 @@ ANYMAIL = {}
 # Collectfast
 # ------------------------------------------------------------------------------
 # https://github.com/antonagestam/collectfast#installation
-#INSTALLED_APPS = ["collectfast"] + INSTALLED_APPS  # noqa F405
+# INSTALLED_APPS = ["collectfast"] + INSTALLED_APPS  # noqa F405
 
 # LOGGING
 # ------------------------------------------------------------------------------
@@ -119,7 +122,9 @@ ANYMAIL = {}
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
+    "filters": {
+        "require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}
+    },
     "formatters": {
         "verbose": {
             "format": "%(levelname)s %(asctime)s %(module)s "
