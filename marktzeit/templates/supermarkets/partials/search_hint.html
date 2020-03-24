@@ -1,0 +1,19 @@
+<h3 class="text-center" style="margin-top: 2em;">Keine Märkte gefunden</h3>
+<p>
+  Zu deiner Suche wurden leider keine Märkte gefunden.<br>
+  So kannst du nach deinem Markt suchen:
+</p>
+<div class="row">
+  <a class="col-sm" href="{% url 'supermarkets:markt-list' %}?q=Rewe+in+Dresden">
+    <i class="fas fa-search"></i>
+    Rewe in Dresden
+  </a>
+  <a class="col-sm" href="{% url 'supermarkets:markt-list' %}?q=Netto+in+der+Damerowstr">
+    <i class="fas fa-search"></i>
+    Netto in der Damerowstr
+  </a>
+  <a class="col-sm" href="{% url 'supermarkets:markt-list' %}?q=Edeka+in+10117">
+    <i class="fas fa-search"></i>
+    Edeka in 10117
+  </a>
+</div>
