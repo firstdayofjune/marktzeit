@@ -77,8 +77,8 @@ class SupermarketListView(ListView):
 
 class SupermarketDetailView(DetailView):
     model = Supermarket
-    slug_field = 'uuid'
-    slug_url_kwarg = 'supermarket_uuid'
+    slug_field = "uuid"
+    slug_url_kwarg = "supermarket_uuid"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -110,61 +110,78 @@ class CSVUploadView(FormView):
         return context
 
     @transaction.atomic()
+    def _process_row(self, row, cleaned_data):
+        """Save the data from a single row"""
+        if row["closing"]:
+            # this supermarket has closed down
+            return 0
+
+        chain = None
+        if row["zentrale"] != NULL:
+            chain, __ = SupermarketChain.objects.get_or_create(
+                name=row["zentrale"]
+            )
+
+        address = Address.objects.create(
+            street=row["strasse"],
+            street_number=row["hausnr"],
+            postal_code=row["plz"],
+            suburb=row["stadtteil"],
+            town=row["ort"],
+            district=row["kreis"],
+            state=row["bundesland"],
+            latitude=row["y"].replace(",", "."),
+            longitude=row["x"].replace(",", "."),
+        )
+
+        name = (
+            row["markttyp"]
+            if row["markttyp"] not in [NULL, OTHER]
+            else row["inhaber"]
+        )
+
+        supermarket = Supermarket(
+            chain=chain,
+            name=name,
+            proprietor=row["inhaber"],
+            phone_number=row["fon"],
+            fax_number=row["fax"],
+            email_address=row["email"],
+            website=row["url"],
+            address=address,
+            people_per_slot=cleaned_data["default_people_per_slot"],
+            minutes_per_slot=cleaned_data["default_minutes_per_slot"],
+        )
+        supermarket.clean()
+        supermarket.save()
+
+        for weekday in cleaned_data["default_working_days"]:
+            OpeningHours.objects.create(
+                supermarket=supermarket,
+                weekday=weekday,
+                opening_time=cleaned_data["default_opening_time"],
+                closing_time=cleaned_data["default_closing_time"],
+            )
+
+        return 1
+
     def create_supermarkets(self, reader, cleaned_data):
         """Create the supermarkets from the uploaded data"""
         created = 0
-        for row in reader:
-            if row["closing"]:
-                # this supermarket has closed down
-                continue
-
-            chain = None
-            if row["zentrale"] != NULL:
-                chain, _ = SupermarketChain.objects.get_or_create(
-                    name=row["zentrale"]
+        for idx, row in enumerate(reader):
+            try:
+                created += self._process_row(row, cleaned_data)
+            except Exception as e:
+                # intentionally catching broad exception
+                # this is so we can log which row failed and why
+                messages.add_message(
+                    self.request,
+                    messages.ERROR,
+                    _(
+                        "Error occurred on row {}: {!r}. Row content: {}"
+                    ).format(idx + 1, e, row),
                 )
-
-            address = Address.objects.create(
-                street=row["strasse"],
-                street_number=row["hausnr"],
-                postal_code=row["plz"],
-                suburb=row["stadtteil"],
-                town=row["ort"],
-                district=row["kreis"],
-                state=row["bundesland"],
-                latitude=row["y"].replace(",", "."),
-                longitude=row["x"].replace(",", "."),
-            )
-
-            name = (
-                row["markttyp"]
-                if row["markttyp"] not in [NULL, OTHER]
-                else row["inhaber"]
-            )
-
-            supermarket = Supermarket(
-                chain=chain,
-                name=name,
-                proprietor=row["inhaber"],
-                phone_number=row["fon"],
-                fax_number=row["fax"],
-                email_address=row["email"],
-                website=row["url"],
-                address=address,
-                people_per_slot=cleaned_data["default_people_per_slot"],
-                minutes_per_slot=cleaned_data["default_minutes_per_slot"],
-            )
-            supermarket.clean()
-            supermarket.save()
-
-            for weekday in cleaned_data["default_working_days"]:
-                OpeningHours.objects.create(
-                    supermarket=supermarket,
-                    weekday=weekday,
-                    opening_time=cleaned_data["default_opening_time"],
-                    closing_time=cleaned_data["default_closing_time"],
-                )
-            created += 1
+                break
         return created
 
     def form_valid(self, form):
