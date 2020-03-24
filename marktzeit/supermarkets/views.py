@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 
 # Constants used in the csv
 NULL = "NN"
-OTHER = "Sonstiges"
+OTHER = "Sonstige"
 
 
 def search(request):
