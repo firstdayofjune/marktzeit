@@ -1,0 +1,23 @@
+nav {
+  opacity: 0.95;
+  position: sticky;
+  top: 0;
+}
+
+footer {
+  a {
+    font-weight: bolder;
+    color: $success;
+
+    &:hover {
+      color: $success;
+    }
+  }
+  span {
+    color: $white;
+  }
+}
+
+.mz__content {
+  margin-top: 5em;
+}

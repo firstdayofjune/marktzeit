@@ -1,0 +1,34 @@
+header.masthead {
+  position: relative;
+  background: url(static('images/masthead_vegetables_lg.jpg')) no-repeat center center;
+  @include background-cover;
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+  .overlay {
+    background-color: rgba($gray-900, 0.5);
+
+    @media (min-width: 768px) {
+      padding: 2em 0 2em 0;
+    }
+  }
+  h1 {
+    font-size: 2rem;
+  }
+  @media (min-width: 768px) {
+    padding-top: 12rem;
+    padding-bottom: 12rem;
+    h1 {
+      font-size: 3rem;
+    }
+  }
+}
+
+.sponsors {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+  .testimonial-item {
+    img {
+      max-width: 20rem;
+    }
+  }
+}

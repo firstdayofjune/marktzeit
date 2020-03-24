@@ -5,6 +5,8 @@ from pathlib import Path
 
 import environ
 
+from django.utils.translation import ugettext_lazy as _
+
 ROOT_DIR = Path(__file__).parents[2]
 # marktzeit/)
 APPS_DIR = ROOT_DIR / "marktzeit"
@@ -36,6 +38,10 @@ USE_L10N = True
 USE_TZ = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
 LOCALE_PATHS = [str(ROOT_DIR / "locale")]
+LANGUAGES = (
+    ('en', _('English')),
+    ('de', _('German')),
+)
 
 # DATABASES
 # ------------------------------------------------------------------------------
@@ -62,6 +68,7 @@ DJANGO_APPS = [
     # "django.contrib.humanize", # Handy template tags
     "django.contrib.admin",
     "django.forms",
+    "compressor",
 ]
 THIRD_PARTY_APPS = [
     "crispy_forms",
@@ -146,7 +153,13 @@ STATICFILES_DIRS = [str(APPS_DIR / "static")]
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "compressor.finders.CompressorFinder",
 ]
+
+# necessary libsass configuration: https://github.com/torchbox/django-libsass
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
 
 # MEDIA
 # ------------------------------------------------------------------------------
