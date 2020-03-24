@@ -27,8 +27,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="supermarket",
             name="uuid",
-            field=models.UUIDField(
-                unique=True, blank=False, null=False, verbose_name="uuid"
-            ),
+            field=models.UUIDField(unique=True, verbose_name="uuid"),
         ),
     ]
